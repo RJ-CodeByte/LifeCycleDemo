@@ -34,11 +34,11 @@ const App = () => {
       <TouchableOpacity onPress={() => {
         RNExitApp.exitApp();
       }} ><Text>Back</Text></TouchableOpacity>
-      <View style={{ alignItems: 'center' }}>
+      <View style={{ flexShrink: 1, backgroundColor: 'red', justifyContent: 'space-between', alignItems: 'center' }}>
         <Text style={styles.text}>{data}</Text>
         <Button title='Update Me' onPress={() => { setData(6) }} />
       </View>
-    </View >
+    </View>
   )
 }
 
