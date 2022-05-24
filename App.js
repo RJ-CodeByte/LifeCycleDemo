@@ -1,112 +1,52 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import { Text, StyleSheet, View, Button, TouchableOpacity, BackHandler } from 'react-native'
+import React, { Component } from 'react'
+import styles from './styles';
+export default class App extends Component {
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+  constructor() {
+    super()
+    this.state = {
+      data: 5
+    }
+    console.log("constructor");
+  }
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+  componentDidMount() {
+    console.log("ComponentDidMount is called");
+  }
+  componentDidUpdate() {
+    console.log("ComponentDidUpdate is Called");
+  }
+  // componentWillUnmount() {
+  //   console.log("ComponentWillUnmount is called")
+  // }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log("shouldComponentUpdate.....", nextState.data);
+  //   console.log("shouldComponentUpdate1.....", this.state.data);
+  //   if (this.state.data != nextState.data)
+  //     return true;
+  //   else
+  //     return false;
+  // }
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    console.log("Snapshot.....", prevState);
+    console.log("Snapshot.....", prevProps);
+  }
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+  render() {
+    console.log("Rendring occur")
+    return (
+      <View style={styles.body}>
+        <TouchableOpacity style={{ justifyContent: 'space-between' }} onPress={() => {
+          BackHandler.exitApp();
+        }} ><Text>Back</Text></TouchableOpacity>
+        <Text style={styles.text}>{this.state.data}</Text>
+        <Button title='Update Me' onPress={() => { this.setState({ data: 6 }) }} />
+      </View>
+    )
+  }
+}
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
